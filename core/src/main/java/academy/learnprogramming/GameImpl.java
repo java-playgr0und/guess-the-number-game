@@ -2,23 +2,26 @@ package academy.learnprogramming;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 @Slf4j
+@Component
 public class GameImpl implements Game {
 
 
-    @Autowired
-    private NumberGenerator numberGenerator;
+
+    private final NumberGenerator numberGenerator;
+    private final int guessCount;
 
     @Autowired
-    @GuessCount
-    private int guessCount;
+    public GameImpl(NumberGenerator numberGenerator, @GuessCount int guessCount) {
+        this.numberGenerator = numberGenerator;
+        this.guessCount = guessCount;
+    }
 
     private int number;
     private int guess;
